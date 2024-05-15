@@ -32,6 +32,35 @@ const leccionesController = async (req, res) => {
     }
 }
 
+const formularioRegistro = (req, res) => {
+    res.render('signup'), {
+        pagina: "Crear cuenta"
+    }
+}
+
+const formularioAuth = (req, res) => {
+    res.render('auth'), {
+        pagina: "Iniciar sesión"
+    }
+}
+
+const cerrarSesion = (req, res) => {
+    try {
+        // Eliminar el token del lado del cliente (eliminar la cookie
+        res.clearCookie('_token');
+
+         // Redireccionar o enviar una respuesta JSON u HTML indicando que la sesión se ha cerrado
+        res.redirect('http://localhost:8080');
+    } catch (error) {
+        return res.status(500).json({
+            msg: "Error en el servidor"
+        })
+    }
+}
+
 export {
-    leccionesController
+    leccionesController,
+    formularioRegistro,
+    formularioAuth,
+    cerrarSesion
 }
