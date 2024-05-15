@@ -26,7 +26,6 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                     <li class="nav-item"><a class="nav-link active" aria-current="page" href="http://localhost:8080">Home</a></li>
-
                 </ul>
                 <% if (autenticado) { %>
                     <form action="http://localhost:8080/signout" method="post">
@@ -45,23 +44,40 @@
     </nav>
     <body>
         <div class="perfil">
-
             <div class="contenedor sombra">
-                <h2 style="text-align: center;"><%= leccion.nombre %></h2>
-                <p>
-                    <%= leccion.descripcion %>
-                </p>
-                <% temario.forEach((item) => { %>
-                    <div id="<%= item.titulo %>" class="container-cursos">
-                        <h3><%= item.titulo %></h2>
-                        <h4><%= item.descripcion %></h3>
-                        <p style="margin-bottom: 70px;"><%= item.contenido %></p>
-
-                    <% }); %>
-                </div>
-                <!-- <a href="" class="continue-button">Completar</a> -->
-            </div>
         
+                    <h2 style="text-align: center;"><strong>Cuestionario: </strong><%= leccion.nombre %></h2>
+                    <br>
+                    <div class="resultado">
+                        <h3 class="resul-text" style="text-align: center;">Tu calificacion : <%= calificacion %> </h3>
+                    </div>
+                    <br>
+                    <h4 class="title-text">Respuestas correctas</h4>
+                    <br>
+                    <% preguntas.forEach((pregunta) => { %>
+                        <div class="container-cursos">
+                            <h5><%= pregunta.pregunta %></h5>
+                    
+                            <!-- Iterar sobre las opciones -->
+                            <% pregunta.opciones.forEach((opcion) => { %>
+                                <div class="container-cursos">
+                                    <label>
+                                        <%= opcion.opcion %>
+                                    </label>
+                                </div>
+                                <br>
+                            <% }); %>
+                        </div>
+                    <% }); %>
+                    <!-- Campo oculto para enviar el ID de la lección -->
+                    <input type="hidden" name="id_leccion" value="<%= leccion.id_leccion %>">
+
+                    <!-- Botón para calcular el resultado -->
+                    <div style="display: flex; justify-content: center; margin-top: 3%;">
+                        <a  class="continue-button" href="http://localhost:8080" style="align-items: center;">Regresar</a>
+                    </div>
+                
+            </div>
         </div>
     </body>
 </body>

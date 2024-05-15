@@ -1,39 +1,37 @@
 import { DataTypes } from "sequelize";
-import bcrypt from 'bcrypt';
 import db from '../db/conexion.js'
 
-const Usuario = db.define('usuario', {
-    id_usuario: {
-        type: DataTypes.STRING,
+const Temario = db.define('temario', {
+    id_temario: {
+        type: DataTypes.INTEGER,
         primaryKey: true,
-        allowNull: false
+        allowNull: false,
+        autoIncrement: true
     },
-    email: {
+    titulo: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    password: {
+    descripcion: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    nombre: {
+    orden: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    confirmado: DataTypes.BOOLEAN,
-    token: DataTypes.STRING,
-    autenticado: DataTypes.BOOLEAN
-}, {
-    hooks: {
-        beforeCreate: async function(usuario){
-            const salt = await bcrypt.genSalt(10)
-            usuario.password = await bcrypt.hash(usuario.password, salt)
-        }
+    estado: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false
+    },
+    contenido: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    id_leccion: {
+        type: DataTypes.INTEGER,
+        allowNull: false
     }
 })
-//Metodos personalizados
-Usuario.prototype.verificarPassword = function(password){
-    return bcrypt.compareSync(password, this.password); //pssword es la constante que envio el usuario y this.password es desde la base de datos a comparar
-}
 
-export default Usuario;
+export default Temario;
