@@ -4,9 +4,10 @@ import db from '../db/conexion.js'
 
 const Usuario = db.define('usuario', {
     id_usuario: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         primaryKey: true,
-        allowNull: false
+        allowNull: false,
+        autoIncrement: true
     },
     email: {
         type: DataTypes.STRING,
